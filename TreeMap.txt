@@ -1,0 +1,50 @@
+import java.util.Map;
+import java.util.TreeMap;
+class Source {
+           private static TreeMap<String,String> data; //use data to  perform all the TreeMap functions...
+
+    public Source() {
+        //Intialze the TreeMap here....
+        data=new TreeMap<String,String>();
+    }
+
+    public String getNumber( String name ) {
+        //Return the number correspoinding to the name else return null...
+        String p=data.get(name);
+        return p;
+    }
+    public boolean getName(String number){
+         //Return true if number correspoinding to a name in the TreeMap else return false.
+         for(String p:data.keySet()){
+             if(number==data.get(p))
+             return true;
+         }
+         return false;
+    }
+public String putNumber( String name, String number ) {
+      // Add the (name,number) pair into TreeMap and return the string "True"
+      // ELSE throw an exception with the message "Name or Number: NULL Exception"
+      try{
+          if(name!=null && number!=null)
+          {
+              this.data.put(name,number);
+              return "True";
+          }
+          else{
+              throw new IllegalArgumentException("Name or Number: NULL Exception");
+          }
+      }catch(IllegalArgumentException e)
+      {
+          return e.getMessage();
+      }
+    }
+public TreeMap<String,String> print() {
+            //Return the TreeMap.
+            return this.data;
+    }
+    public static void main(String[] args) {
+        
+        // Implement the method calls listed in the problem description to arrive at the Sample Output
+        
+    }
+}

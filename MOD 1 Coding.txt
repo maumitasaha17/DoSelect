@@ -1,0 +1,579 @@
+Collections : School Management System
+class Student{
+	private String name;
+	private float percentage;
+   public Student(String name, float percentage){
+this.name=name;
+this.percentage=percentage;
+}
+   public String getName(){
+	return name;
+}
+   public float getPercentage(){
+	return percentage;
+}
+  public void setName(String name){
+this.name=name;
+}
+  public void setPercentage(float percentage){
+	this.percentage=percentage;
+}
+}
+class Sorting implements Comparator<Student>{
+     public int compare(Student o1,Student o2){
+	return o1.getName().compareTo(o2.getName());
+}
+}
+class School{
+	ArrayList<Student> studentList = new ArrayList<Student>();
+   public ArrayList<Student> sortByName(){
+	Collections.sort(studentList,new Sorting());
+	return studentList;
+}
+  public double getAvgPercentage(){
+	double sum=0;
+	for(Student s:studentList)
+	sum+=(double)s.getPercentage();
+	return sum/studentList.size();
+}
+}
+public class Source{
+	public static void main(String args[]) throws Exception{
+	ArrayList<Student> list = new ArrayList<>();
+	list.add(new Student(“Steve”,(float)56.3));
+	list.add(new Student(“Bob”,(float)67.3));
+	list.add(new Student(“Alice”,(float)98.4));
+	list.add(new Student(“Mark”,(float)40));
+	School sc = new School();
+	sc.studentList = list;
+	sc.sortByName();
+	sc.getAvgPercentage();
+}
+}
+} 
+ 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+Exception Handling: Validate Customer Details
+class customer{
+	String name;
+	String mobileNo;
+	String customerID;
+    public Customer(String name, String mobileNo, String customerID){
+	this.name=name;
+	this.mobileNo=mobileNo;
+	this.customerID=customerID;
+}
+} 
+
+class validator{
+   public String validateCustomerID(Customer c) throws InvalidCustomerIDException{
+	String first = c.mobileNo.substring(0,4);
+	String last = c.name.substring(c.name.length()-2);
+	if(!c.customerID.substring(0,4).equals(first)) throw new InvalidCustomerIDException(“Invalid customerID”);
+ 	if(!c.customerID.substring(c.customerID.length()-2).equals(last)) { throw new InvalidCustomerIDException(“Invalid customerID”);
+}
+return “valid CId”;
+}
+public String validateMobileNo(Customer c) throws InvalidMobileNoException{
+	if(c.mobileNo.length()==10){
+	String first_digit=c.mobileNo.substring(0,1);
+	if(first_digit.equals(“9”) || first_digit.equals(“8”) || first_digit.equals(“7”) || first_digit.equals(“6”))
+	Return “valid MobileNo”;
+}
+throw new InvalidMobileNoException(“Invalid MobileNo”);
+}
+}
+
+class InvalidCustomerIDException extends Exception{
+   public InvalidCustomerIDException(String str){
+	super(str);
+}
+}
+
+class InvalidMobileNoException extends Exception{
+   public InvalidMobileNoException(String str){
+	super(str);
+}
+}
+
+public class Source{
+  public static main(String arg[]) throws Exception{
+}
+}
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Stream API & Lambda Expressions: Document it!
+class Page{
+	private String content;
+    public Page(String content){
+	this.content=content;
+}
+public String getContent(){
+	return content;
+}
+
+	@Override
+	public String toString(){
+		return “Page{“ + ”content=’ ” +content+  ’\’ ‘  +  ’}’;
+	}
+}
+class Document{
+	String title;
+	List<Page> pages;
+public Document(String title, List<Page> pages){
+	this.title=title;
+	this.pages=pages;
+}
+public String getTitle(){
+	return title;
+}
+public List<Page> getPages(){
+	return pages;
+}	
+
+@Override
+	public String toString(){
+		return “Document{” + “title=’ ”  +title+  ‘\’ ’ + “, pages= “ +pages+ ‘}’;
+	}
+}
+
+class DocumentImplementation{
+	public static Integer characterCount(Page page){
+		return page.getContent().length();
+}
+
+public List<String> titlesOf(Document….documents){
+	List<String> out = new ArrayList<>();
+	Arrays.stream(documents).forEach(d  out.add(d.getTitle()));
+	return out;
+}
+public List<Integer> pageCharacterCounts(Document….documents){
+	List<Integer> out = new ArrayList<>();
+	Document.pages.stream().forEach(page  out.add(characterCount(page)));
+	return out;
+}
+}
+
+public class Source{
+public Static main(String args[]) throws Exception{
+}
+}
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+String Manipulation: DNA Complement
+public class Source{
+public String dnaComplement(String dna){
+		char arr[]=dna.toCharArray();
+		String out =””;
+		for(char s:arr){
+			if(s==’A’)
+			 	out+=’T’;
+			else if(s==’T’)
+			 	out+=’A’;
+			else if(s==’C’)
+			 	out+=’G’;
+			else if(s==’G’)
+			 	out+=’C’;
+			else
+				out+=s;
+		}
+return out;
+}
+public static void main(String arg[]) throws Exception{
+}
+}
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ArrayListOps
+
+import java.util.*;
+class ArrayListOps {
+   public ArrayList<Integer> makeArrayListInt(int n)
+	{
+	ArrayList<Integer> list=new ArrayList<>(n);
+				
+		for(int i=0;i<n;i++)
+		list.add(i,0);
+		System.out.println(list);
+		return list;
+	}
+   public ArrayList<Integer> reverseList(ArrayList<Integer> list)
+	{
+		Collections.reverse(list);
+		System.out.println(list);
+		return list;
+	}
+   public ArrayList<Integer> changeList(ArrayList<Integer> list,int m,int n)
+	{
+		list.set(list.indexOf(m), n);
+		System.out.println(list);
+		return list;
+	}	
+}
+public class Source{
+	public static void main(String[] args) {
+		
+	ArrayListOps obj=new ArrayListOps();
+	ArrayList<Integer> list=new ArrayList<Integer>(Arrays.asList(10,25,33,28,10,12));
+		int n=4;
+		int m=28;
+		
+		obj.makeArrayListInt(n);
+		obj.reverseList(list);
+		n=20;
+		obj.changeList(list,m,n);
+		}
+}
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+class Activity{
+  //Implement Activity class here..
+  String string1;
+  String string2;
+  String operator;
+
+  public Activity(String string1,String string2,String operator)
+  {
+    this.string1=string1;
+     this.string2=string2;
+      this.operator=operator; 
+  }
+}
+
+public class Source {
+  //Implement the two function given in description in here...
+   public String handleException(Activity a)
+
+  {
+    try
+    {
+          if(a.string1.equals(null) || a.string2.equals(null))
+          {
+              throw new NullPointerException();
+              
+          }
+          if(!a.operator.equals("+") && !a.operator.equals("-"))
+          {
+                throw new Exception();
+                   
+          }
+    }
+    catch(NullPointerException e)
+    {
+        return "Null values found";
+    }
+    catch(Exception e)
+    {
+    	System.out.println(a.operator);
+    	 return a.operator;
+    }
+    return "No Exception Found";
+  }
+  
+  public String doOperation(Activity a)
+  {
+    String result=null;
+    this.handleException(a);
+    
+    switch(a.operator)
+    
+    {
+      case "+":
+             result= a.string1.concat(a.string2);
+              break;
+      case "-":
+              result=a.string1.replace(a.string2,"");
+              break;
+      default:
+            break;
+    }
+    
+    
+    return result;
+  }  
+	public static void main(String args[] ) throws Exception {
+    //Write your own main to check the program...
+    Activity obj=new Activity("helloworld","hello","+");
+		
+		Source obj1=new Source();
+		obj1.handleException(obj);
+		obj1.doOperation(obj);
+    
+	}
+}
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+String searchForJob(int age, String highestQualification)
+{
+    if(age>=200 || age<=0)
+    {
+        try{
+            throw new NotEligibleException("The age entered is not typical for human being");
+        }
+        catch(NotEligibleException nee)
+        {
+            System.out.println(nee);
+        }
+    }
+    else
+    return CompanyJobRepository.getJobPrediction(age,highestQualification);
+}
+class CompanyJobRepository{
+static String getJobPrediction(int age, String highestQualification)
+{
+    
+    if(age<19)
+    {
+        try{
+            throw new NotEligibleException("You are underage for any job");
+        }
+        catch(NotEligibleException nee)
+        {
+            System.out.println(nee);
+        }
+        
+    }
+    else if(age>=21 && highestQualification=="B.E")
+    {
+        return "We have openings for Junior developer";
+    }
+    else if(age>=26 && (highestQualification=="M.S" || highestQualification=="PhD"))
+    {
+        return "We have openings for Senior developer";
+    }
+    else if(age>=19 && (highestQualification!="M.S")||(highestQualification!="PhD")||(highestQualification!="B.E"))
+    {
+        try{
+            throw new NotEligibleException("We do not have any job that matches your qualifications");
+        }
+        catch(NotEligibleException nee)
+        {
+            System.out.println(nee);
+        }
+        
+    }
+    else
+    {
+        return "Sorry we have no openings for now";
+    }
+}
+}
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+package Person;
+
+import java.util.ArrayList;
+import java.util.List;
+
+class Student {
+	private String firstName;
+	private String lastName;
+	private int score;
+
+	public Student(String fName, String lName, int score) {
+		this.firstName = fName;
+		this.lastName = lName;
+		this.score = score;
+
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+}
+
+class StudentImplementation{
+	public long countStudents(List<Student> list) {
+		long count=0;
+		for(Student l:list) {
+			if(l.getScore()>70) {
+				count++;
+			}
+		}
+		return count;
+	}
+   public 	List<String> getName(List<Student>list){
+	   List<String> l=new ArrayList<String>();
+	   for(Student l1:list) {
+		   l.add(l1.getFirstName()+l1.getLastName());
+	   }
+	   return l;
+   }
+}
+
+public class Main1 {
+
+	public static void main(String[] args) {
+		
+		StudentImplementation s=new StudentImplementation();
+		List<Student> students=new ArrayList<Student>();
+		students.add(new Student("smith","John",90));
+		students.add(new Student("nagu","John",85));
+		students.add(new Student("ramya","John",30));
+		System.out.println(s.countStudents(students));
+		System.out.println(s.getName(students));
+
+	}
+
+}
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+import java.util.Map;
+import java.util.TreeMap;
+class Source {
+           private static TreeMap<String,String> data; //use data to  perform all the TreeMap functions...
+
+    public Source() {
+        //Intialze the TreeMap here....
+        data=new TreeMap<String,String>();
+    }
+
+    public String getNumber( String name ) {
+        //Return the number correspoinding to the name else return null...
+        String p=data.get(name);
+        return p;
+    }
+    public boolean getName(String number){
+         //Return true if number correspoinding to a name in the TreeMap else return false.
+         for(String p:data.keySet()){
+             if(number==data.get(p))
+             return true;
+         }
+         return false;
+    }
+public String putNumber( String name, String number ) {
+      // Add the (name,number) pair into TreeMap and return the string "True"
+      // ELSE throw an exception with the message "Name or Number: NULL Exception"
+      try{
+          if(name!=null && number!=null)
+          {
+              this.data.put(name,number);
+              return "True";
+          }
+          else{
+              throw new IllegalArgumentException("Name or Number: NULL Exception");
+          }
+      }catch(IllegalArgumentException e)
+      {
+          return e.getMessage();
+      }
+    }
+public TreeMap<String,String> print() {
+            //Return the TreeMap.
+            return this.data;
+    }
+    public static void main(String[] args) {
+        
+        // Implement the method calls listed in the problem description to arrive at the Sample Output
+        
+    }
+}
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+public class User {
+
+	private String name;
+	private int age;
+	
+	public User(String name, int age) {
+		super();
+		this.name = name;
+		this.age = age;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}	
+}
+
+public class UserImplementations {
+
+	public static int sumAge(List<User> list) {
+		
+return list.stream().filter(x ->x.getAge()>50).mapToInt(x->x.getAge()).sum();
+			 
+		}
+	public static List<String> getPersonName(List<User> list){
+		return list.stream().map(User::getName).collect(Collectors.toList());
+		
+	}
+	
+	public static List<Integer> getPersonAge(List<User> list){
+		return list.stream().map(User::getAge).collect(Collectors.toList());
+		
+	}	
+	public static void main(String[] args) {
+		List<User> users=new ArrayList<>();
+		users.add(new User("Perry",20));
+		users.add(new User("Ferry",52));
+		users.add(new User("Katty",100));
+		users.add(new User("Elly",14));
+		
+		System.out.println(sumAge(users));
+		System.out.println(getPersonName(users));
+		System.out.println(getPersonAge(users));	
+
+	}
+
+}
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+

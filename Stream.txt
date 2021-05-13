@@ -1,0 +1,275 @@
+package com.cg.streams;
+
+public class Product {
+
+	private int id;
+	private String name;
+	private double cost;
+	private String companyName;
+
+	public Product() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Product(int id, String name, double cost, String companyName) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.cost = cost;
+		this.companyName = companyName;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public double getCost() {
+		return cost;
+	}
+
+	public void setCost(double cost) {
+		this.cost = cost;
+	}
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", cost=" + cost + ", companyName=" + companyName + "]";
+	}
+
+}
+public class ProductService {
+
+	static List<Product> products = new ArrayList<>();
+
+	static {
+		products.add(new Product(123, "Fridge", 43000, "Samsung"));
+		products.add(new Product(12312, "Washing Machine", 34500, "LG"));
+		products.add(new Product(1190, "Microwave", 13000, "IFB"));
+		products.add(new Product(10909, "Cooler", 12000, "LG"));
+		products.add(new Product(12321, "TV", 53000, "Sony"));
+	}
+
+	public List<Product> getCompanyNames() {
+		
+		/*List<Product> list = new ArrayList<>();
+		for(Product product : products) {
+			if(product.getCompanyName().startsWith("S")) {
+				list.add(product);
+			}
+		}*/
+		
+		return products.stream().filter(p -> p.getCompanyName().startsWith("S")).collect(Collectors.toList());
+	}
+	
+	
+	public List<Product> getAllProducts(double cost) {
+
+		List<Product> list = products.stream().filter(p -> p.getCost() > cost).collect(Collectors.toList());
+		return list;
+
+		// return products.stream().filter(p -> p.getCost() >
+		// cost).collect(Collectors.toList());
+
+	}
+
+	public List<Product> getAllProductNames(String companyName) {
+
+		List<Product> list = products.stream().filter(product -> product.getCompanyName().equals(companyName))
+				.collect(Collectors.toList());
+		return list;
+	}
+
+	public double getMaxCost() {
+
+		// return products.stream().mapToDouble( p -> p.getCost()).max().getAsDouble();
+
+		Product product = products.stream().max(Comparator.comparing(Product::getCost)).get();
+		return product.getCost();
+
+	}
+
+}
+public class Main {
+
+	public static void main(String[] args) {
+
+		ProductService service = new ProductService();
+		List<Product> list = service.getAllProducts(25000);
+		for (Product product : list) {
+			System.out.println(product);
+		}
+
+		System.out.println("===========================================================");
+		List<Product> productNames = service.getAllProductNames("LG");
+		for (Product product : productNames) {
+			System.out.println(product.getName());
+		}
+
+		System.out.println("===========================================================");
+		double cost = service.getMaxCost();
+		System.out.println(cost);
+		
+		System.out.println("===========================================================");
+		List<Product> list2 = service.getCompanyNames();
+		list2.forEach(p -> System.out.println(p));
+
+	}
+
+}
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+public class Person {
+
+	private String name;
+	private int age;
+
+	public Person() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Person(String name, int age) {
+		super();
+		this.name = name;
+		this.age = age;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+}
+public class Main {
+
+	static List<Person> list = new ArrayList<>();
+
+	public static int getMaxAge() {
+		int age = list.stream().mapToInt(p -> p.getAge()).max().getAsInt();
+		return age;
+	}
+
+	public static void main(String[] args) {
+
+		list.add(new Person("Pavan", 34));
+		list.add(new Person("Siva", 54));
+		list.add(new Person("Pavan", 56));
+		list.add(new Person("shanu", 24));
+		list.add(new Person("nani", 24));
+
+		System.out.println(getMaxAge());
+
+		int sum = list.stream().filter(p -> p.getAge() > 50).mapToInt(p -> p.getAge()).sum();
+		System.out.println(sum);
+
+		long value = list.stream().filter(p -> p.getName().equals("Pavan")).count();
+		System.out.println(value);
+
+		List<String> names = list.stream().map(Person::getName).collect(Collectors.toList());
+		System.out.println(names);
+
+		List<Integer> ages = list.stream().map(Person::getAge).collect(Collectors.toList());
+		System.out.println(ages);
+
+		// list.stream().map(Person::getName).forEach(e -> System.out.println(e));
+
+	}
+
+}
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+class Employee {
+	// implement the Employee class here...
+	String empName;
+	String empID;
+	String empDept;
+	int salary;
+
+	public Employee(String name, String id, String dept, int sal) {
+		empName = name;
+		empID = id;
+		empDept = dept;
+		salary = sal;
+	}
+
+	@Override
+	public String toString() {
+		return "Employee [empName=" + empName + ", empID=" + empID + ", empDept=" + empDept + ", salary=" + salary
+				+ "]";
+	}
+
+}
+
+public class StringDemo {
+
+	public static Employee getEmployeeInfo(String str) {
+
+		String array[] = str.split("ID");
+		String name = array[0];
+		name = name.replace('.', ' ');
+		System.out.println(name);
+		String fromIdPart = array[1];
+
+		String a[] = fromIdPart.split("DT");
+		String empId = a[0];
+		System.out.println(empId);
+		String fromDtPart = a[1];
+
+		String b[] = fromDtPart.split("CTC");
+		String deptName = b[0];
+		System.out.println(deptName);
+
+		String salry = b[1];
+		salry = salry.replace("L", "");
+		int salary = Integer.parseInt(salry) * 100000;
+
+		Employee employee = new Employee(name, empId, deptName, salary);
+
+		return employee;
+	}
+
+	public static void main(String[] args) {
+
+		String str = "Jimmy.RyanIDIE22IT023DTITCTC8L";
+		Employee employee = getEmployeeInfo(str);
+		System.out.println(employee);
+
+	}
+
+}
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+

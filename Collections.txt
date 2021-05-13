@@ -1,0 +1,57 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+public class User {
+
+	private String name;
+	private int age;
+	
+	public User(String name, int age) {
+		super();
+		this.name = name;
+		this.age = age;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}	
+}
+
+public class UserImplementations {
+
+	public static int sumAge(List<User> list) {
+		
+return list.stream().filter(x ->x.getAge()>50).mapToInt(x->x.getAge()).sum();
+			 
+		}
+	public static List<String> getPersonName(List<User> list){
+		return list.stream().map(User::getName).collect(Collectors.toList());
+		
+	}
+	
+	public static List<Integer> getPersonAge(List<User> list){
+		return list.stream().map(User::getAge).collect(Collectors.toList());
+		
+	}	
+	public static void main(String[] args) {
+		List<User> users=new ArrayList<>();
+		users.add(new User("Perry",20));
+		users.add(new User("Ferry",52));
+		users.add(new User("Katty",100));
+		users.add(new User("Elly",14));
+		
+		System.out.println(sumAge(users));
+		System.out.println(getPersonName(users));
+		System.out.println(getPersonAge(users));	
+
+	}
+
+}

@@ -1,0 +1,76 @@
+package Person;
+
+import java.util.ArrayList;
+import java.util.List;
+
+class Student {
+	private String firstName;
+	private String lastName;
+	private int score;
+
+	public Student(String fName, String lName, int score) {
+		this.firstName = fName;
+		this.lastName = lName;
+		this.score = score;
+
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+}
+
+class StudentImplementation{
+	public long countStudents(List<Student> list) {
+		long count=0;
+		for(Student l:list) {
+			if(l.getScore()>70) {
+				count++;
+			}
+		}
+		return count;
+	}
+   public 	List<String> getName(List<Student>list){
+	   List<String> l=new ArrayList<String>();
+	   for(Student l1:list) {
+		   l.add(l1.getFirstName()+l1.getLastName());
+	   }
+	   return l;
+   }
+}
+
+public class Main1 {
+
+	public static void main(String[] args) {
+		
+		StudentImplementation s=new StudentImplementation();
+		List<Student> students=new ArrayList<Student>();
+		students.add(new Student("smith","John",90));
+		students.add(new Student("nagu","John",85));
+		students.add(new Student("ramya","John",30));
+		System.out.println(s.countStudents(students));
+		System.out.println(s.getName(students));
+
+	}
+
+}
